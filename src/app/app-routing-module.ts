@@ -6,6 +6,7 @@ import { Games } from './games/games';
 const routes: Routes = [
   { path: 'consoles', component: Consoles },
   { path: 'games', component: Games },
+  { path: 'games/console/:consoleId', component: Games },
   { path: '', redirectTo: '/consoles', pathMatch: 'full' }
 ];
 

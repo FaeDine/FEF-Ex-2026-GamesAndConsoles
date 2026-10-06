@@ -1,1 +1,18 @@
-<p>consoles works!</p>
+<div>
+    @for (c of consoles; track c.id) {
+        <div>
+            @if(!!c.images) {
+                <img [src]="c.images[0]" style="height:200px;width:auto">
+            }
+        </div>
+        <div>
+            <h5>{{c.name}}</h5>
+            <p>{{c.manufacturer}}</p>
+        </div>
+
+        <div>
+            <a routerLink="/games/console/{{c.id}}">
+                Games for {{c.name}}</a>
+        </div>
+    }
+</div>
