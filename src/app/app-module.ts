@@ -4,9 +4,11 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { Games } from './games/games';
 import { Consoles } from './consoles/consoles';
+import { ConsoleDetails } from './console-details/console-details';
+import { GameDetails } from './game-details/game-details';
 
 @NgModule({
-  declarations: [App, Games, Consoles],
+  declarations: [App, Games, Consoles, ConsoleDetails, GameDetails],
   imports: [BrowserModule, AppRoutingModule],
   providers: [provideBrowserGlobalErrorListeners()],
   bootstrap: [App],

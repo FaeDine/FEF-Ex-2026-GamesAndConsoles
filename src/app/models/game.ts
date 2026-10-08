@@ -6,15 +6,3 @@ export class Game {
     publisher?: string;
     price?: number;
 }
-
-
-// game-console.ts
-
-export class GameConsole {
-    id?: number;
-    name?: string;
-    manufacturer?: string;
-    price?: number;
-    releaseDate?: Date;
-    images?: string[];
-}
