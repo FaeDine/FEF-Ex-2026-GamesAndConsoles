@@ -7,6 +7,14 @@
             <div>
                 <h5>{{g.name}}</h5>
             </div>
+            <div>
+                <a routerLink="/game/{{g.id}}">
+                    {{g.name}} Details</a>
+            </div>
         }
+    </div>
+}@else{
+    <div>
+        No game found.
     </div>
 }

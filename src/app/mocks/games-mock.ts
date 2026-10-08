@@ -50,7 +50,7 @@ export const GAMES: Game[] = [
         price: 99.99
     },
     {
-        id: 6,
+        id: 7,
         consoleId: 4,
         name: 'Tom Clancy\'s Rainbow Six Extraction',
         cover: 'https://m.media-amazon.com/images/I/81Xju1slPkL._AC_SX342_SY445_QL70_ML2_.jpg',
