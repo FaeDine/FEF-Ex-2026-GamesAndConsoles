@@ -3,12 +3,15 @@
     <h2>Manufactured by {{console.manufacturer}}</h2>
     <h2>{{console.price | currency}}</h2>
     <h2>Release date: {{console.releaseDate}}</h2>
-    <!-- div>
-        <img src="{{game.cover}}" style="height:200px;width:auto">
+    <div>
+        @for(img of console.images; track img){
+            <img src="{{img}}" style="height:200px;width:auto">
+        }
     </div>
     <div>
-        <a routerLink="/console/{{console?.id}}">{{console?.name}}</a>
-    </div> -->
+        <a routerLink="/games/console/{{console?.id}}">
+            Games for {{console?.name}}</a>
+    </div>
 }@else{
     <div>Console not found.</div>
 }
