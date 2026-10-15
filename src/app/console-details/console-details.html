@@ -1,28 +1,17 @@
-@if (lookup$ | async; as result) {
-    @if (result.console; as console) {
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="card d-flex flex-column m-1" style="width: 18rem;">
-                <div class="flex-grow-1 px-3 py-2">
-                    <h5 class="card-title">{{console.name}}</h5>
-                    <p class="card-text">Manufactured by <b>{{console.manufacturer}}</b></p>
-                    <p class="card-text">Released {{console.releaseDate?.toDateString()}}</p>
-                </div>
-
-                <div class="card-body text-center mt-auto">
-                    @for(img of console.images; track img){
-                        <img src="{{img}}" style="width:200px;" class="p-3">
-                    }
-
-                    <a routerLink="/games/console/{{console.id}}" class="btn btn-primary">Games for {{console.name}}</a>
-                </div>
-            </div>
-        </div>
-    } @else {
-        <div class="alert alert-warning mt-3 mx-auto" style="max-width:20rem;">Console not found.</div>
-    }
-} @else {
-    <div class="text-center mt-4">
-        <div class="spinner-border text-primary" role="status"></div>
-        <h3>Loading console...</h3>
+@if(!!console){
+    <h1>{{console.name}}</h1>
+    <h2>Manufactured by {{console.manufacturer}}</h2>
+    <h2>{{console.price | currency}}</h2>
+    <h2>Release date: {{console.releaseDate}}</h2>
+    <div>
+        @for(img of console.images; track img){
+            <img src="{{img}}" style="height:200px;width:auto">
+        }
     </div>
+    <div>
+        <a routerLink="/games/console/{{console?.id}}">
+            Games for {{console?.name}}</a>
+    </div>
+}@else{
+    <div>Console not found.</div>
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
+// Import the GameConsole data model we created earlier.
 import { GameConsole } from '../models/game-console';
-import { ConsoleService } from '../services/console-service';
+// Import the mock data
+import { CONSOLES } from '../mocks/consoles-mock';
 
 @Component({
   selector: 'app-consoles',
@@ -9,14 +10,8 @@ import { ConsoleService } from '../services/console-service';
   styleUrl: './consoles.css',
   templateUrl: './consoles.html',
 })
-export class Consoles implements OnInit {
-  // The $ suffix is the convention for "this holds an Observable"
-  consoles$?: Observable<GameConsole[]>;
-
-  // Angular creates the service and hands it to us
-  constructor(private consoleService: ConsoleService) { }
-
-  ngOnInit(): void {
-    this.consoles$ = this.consoleService.getConsoles();
-  }
+export class Consoles {
+  // Create a property that is an array of consoles based
+  // on what exists in the mock data.
+  consoles: GameConsole[] = CONSOLES;
 }
