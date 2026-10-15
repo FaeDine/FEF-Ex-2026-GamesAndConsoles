@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Game } from '../models/game';
-import { GAMES } from '../mocks/games-mock'
 import { ActivatedRoute } from '@angular/router';
+import { GameService } from '../services/game-service';
 
 @Component({
   selector: 'app-games',
@@ -9,31 +10,22 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './games.css',
   templateUrl: './games.html',
 })
+export class Games implements OnInit {
+  games$?: Observable<Game[]>;
 
-export class Games {
-  games?: Game[] | undefined;
-
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private gameService: GameService
+  ) { }
 
   ngOnInit(): void {
-    // Grab the console parameter from the URL
     const idParam = this.route.snapshot.paramMap.get('consoleId');
 
-    // If a parameter for a console ID exists, create an array of games
-    // that use the consoles ID.
     if (!!idParam) {
       const id: number = parseInt(idParam);
-      this.games = GAMES.filter(g => g.consoleId == id);
-    // If no console ID is given as a parameter, use the full list of games.
+      this.games$ = this.gameService.getGamesByConsole(id);
     } else {
-      this.games = GAMES;
+      this.games$ = this.gameService.getGames();
     }
-
-
-
   }
-
-
-
-
 }

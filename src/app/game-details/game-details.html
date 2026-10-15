@@ -1,13 +1,28 @@
-@if(!!game){
-    <h1>{{game.name}}</h1>
-    <h2>{{game.publisher}}</h2>
-    <h2>{{game.price | currency}}</h2>
-    <div>
-        <img src="{{game.cover}}" style="height:200px;width:auto">
+@if (detail$ | async; as detail) {
+    @if (detail.game; as game) {
+        <div class="d-flex justify-content-center">
+            <div class="card d-flex flex-column m-1" style="width: 20rem;">
+                @if(!!game.cover) {
+                    <img [src]="game.cover" class="card-img-top mx-auto d-block pt-4" style="height:260px;width:auto">
+                }
+
+                <div class="flex-grow-1 px-3 py-2 text-center">
+                    <h5 class="card-title">{{game.name}}</h5>
+                    <p class="card-text text-muted mb-1">{{game.publisher}}</p>
+                    <p class="card-text fw-bold">{{game.price | currency}}</p>
+                </div>
+
+                <div class="card-body text-center mt-auto">
+                    <a routerLink="/console/{{detail.console?.id}}" class="btn btn-primary">{{detail.console?.name}}</a>
+                </div>
+            </div>
+        </div>
+    } @else {
+        <div class="alert alert-warning mt-3 mx-auto" style="max-width:20rem;">Game not found.</div>
+    }
+} @else {
+    <div class="text-center mt-4">
+        <div class="spinner-border text-primary" role="status"></div>
+        <h3>Loading game...</h3>
     </div>
-    <div>
-        <a routerLink="/console/{{console?.id}}">{{console?.name}}</a>
-    </div>
-}@else{
-    <div>Game not found.</div>
 }

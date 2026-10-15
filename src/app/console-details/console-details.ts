@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GameConsole } from '../models/game-console';
+import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { CONSOLES } from '../mocks/consoles-mock';
+import { ConsoleService, ConsoleLookup } from '../services/console-service';
 
 @Component({
   selector: 'app-console-details',
@@ -9,21 +9,20 @@ import { CONSOLES } from '../mocks/consoles-mock';
   styleUrl: './console-details.css',
   templateUrl: './console-details.html',
 })
-export class ConsoleDetails {
-  console?: GameConsole;
+export class ConsoleDetails implements OnInit {
+  lookup$?: Observable<ConsoleLookup>;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private consoleService: ConsoleService
+  ) { }
 
   ngOnInit(): void {
-    // Grab the ConsoleID from the URL
     const idParam = this.route.snapshot.paramMap.get('id');
 
-    // Only dispplay the console details with the matching ID.
     if (!!idParam) {
       const id: number = parseInt(idParam);
-      this.console = CONSOLES.find(c => c.id == id);
+      this.lookup$ = this.consoleService.getConsole(id);
     }
   }
-
-
 }
