@@ -12,9 +12,7 @@ import { Observable, of } from 'rxjs';
 //@Service()
 export class ConsoleService {
 
-    private consoles: GameConsole[] = CONSOLES;
-
-    getConsoles(): GameConsole[] {
-        return this.consoles;
+    getConsoles(): Observable<GameConsole[]> {
+        return of(CONSOLES);
     }
 }

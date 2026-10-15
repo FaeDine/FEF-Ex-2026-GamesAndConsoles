@@ -1,3 +1,4 @@
+@if (consoles$ | async; as consoles) {
 <div class="row justify-content-center">
     @for (c of consoles; track c.id) {
         <div class="card d-flex flex-column m-1" style="width: 18rem;">
@@ -17,3 +18,4 @@
         </div>
     }
 </div>
+}

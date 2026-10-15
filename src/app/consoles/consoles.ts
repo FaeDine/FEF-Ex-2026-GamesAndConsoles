@@ -5,6 +5,7 @@ import { GameConsole } from '../models/game-console';
 import { ConsoleService } from '../service/console-service';
 // Import the mock data
 // import { CONSOLES } from '../mocks/consoles-mock';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-consoles',
@@ -16,11 +17,12 @@ export class Consoles {
   // Create a property that is an array of consoles based
   // on what exists in the mock data.
   //consoles: GameConsole[] = CONSOLES;
-  consoles: GameConsole[] = [];
+  //consoles: GameConsole[] = [];
+  consoles$?: Observable<GameConsole[]>;
 
   constructor(private consoleService: ConsoleService) {}
 
   ngOnInit(): void {
-    this.consoles = this.consoleService.getConsoles();
+    this.consoles$ = this.consoleService.getConsoles();
   }
 }
