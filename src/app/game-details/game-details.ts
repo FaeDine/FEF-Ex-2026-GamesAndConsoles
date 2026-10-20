@@ -2,8 +2,11 @@ import { Component } from '@angular/core';
 import { Game } from '../models/game';
 import { ActivatedRoute } from '@angular/router';
 import { GameConsole } from '../models/game-console';
-import { GAMES } from '../mocks/games-mock';
-import { CONSOLES } from '../mocks/consoles-mock';
+//import { GAMES } from '../mocks/games-mock';
+//import { CONSOLES } from '../mocks/consoles-mock';
+import { Observable } from 'rxjs';
+import { GameService } from '../service/game-service';
+import { ConsoleService } from '../service/console-service';
 
 @Component({
   selector: 'app-game-details',
@@ -12,10 +15,11 @@ import { CONSOLES } from '../mocks/consoles-mock';
   templateUrl: './game-details.html',
 })
 export class GameDetails {
-  game?: Game;
-  console?: GameConsole;
+  game$?: Observable<Game | undefined>;
+  console$?: Observable<GameConsole>;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private GameService: GameService,
+    private ConsoleService: ConsoleService) {}
 
   // Grab the parameter
   ngOnInit(): void {
@@ -25,12 +29,16 @@ export class GameDetails {
     // grab the game with the matching ID.
     if (!!idParam) {
       const id: number = parseInt(idParam);
-      this.game = GAMES.find(g => g.id == id);
+      //this.game = GAMES.find(g => g.id == id);
+      this.game$ = this.GameService.getGame(id);
     }
 
+
     // Get the console associated with this game.
-    if (!!this.game?.consoleId) {
-      this.console = CONSOLES.find(c => c.id == this.game?.consoleId);
+    if (!!this.game$?.subscribe(g => g?.consoleId)) {
+      consoleId: number = this.game$.subscribe(g => g?.consoleId);
+      this.console$ = this.ConsoleService.getConsole(this.game$.subscribe(g => g?.consoleId));
+      
     }
   }
 

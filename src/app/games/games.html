@@ -1,4 +1,4 @@
-@if(!!games?.length) {
+@if(games$ | async; as games) {
     <div class="row justify-content-center">
         @for(g of games; track g.id) {
             <div class="card d-flex flex-column m-1" style="width: 18rem;">
@@ -17,5 +17,8 @@
         }
     </div>
 }@else{
-    <div class="alert alert-warning mt-3 mx-auto" style="max-width:20rem;">No games found.</div>
+    <div class="text-center mt-4">
+        <div class="spinner-border"></div>
+        <h3>Loading consoles...</h3>
+    </div>
 }

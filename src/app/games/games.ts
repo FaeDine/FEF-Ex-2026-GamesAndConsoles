@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Game } from '../models/game';
 import { GAMES } from '../mocks/games-mock'
 import { ActivatedRoute } from '@angular/router';
+import { GameService } from '../service/game-service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-games',
@@ -11,9 +13,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class Games {
-  games?: Game[] | undefined;
+  games$?: Observable<Game[] | undefined>;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private GameService: GameService) { }
 
   ngOnInit(): void {
     // Grab the console parameter from the URL
@@ -23,17 +25,12 @@ export class Games {
     // that use the consoles ID.
     if (!!idParam) {
       const id: number = parseInt(idParam);
-      this.games = GAMES.filter(g => g.consoleId == id);
+      //this.games = GAMES.filter(g => g.consoleId == id);
+      this.games$ = this.GameService.getGamesbyConsole(id);
+      //this.games$ = GAMES.filter(g => g.consoleId == id);
     // If no console ID is given as a parameter, use the full list of games.
     } else {
-      this.games = GAMES;
+      this.games$ = this.GameService.getGames();
     }
-
-
-
   }
-
-
-
-
 }
