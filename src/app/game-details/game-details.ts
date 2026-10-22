@@ -15,8 +15,7 @@ import { ConsoleService } from '../service/console-service';
   templateUrl: './game-details.html',
 })
 export class GameDetails {
-  game$?: Observable<Game | undefined>;
-  console$?: Observable<GameConsole>;
+  gdetail$?: Observable<{ game?: Game; console?: GameConsole }>;
 
   constructor(private route: ActivatedRoute, private GameService: GameService,
     private ConsoleService: ConsoleService) {}
@@ -29,17 +28,7 @@ export class GameDetails {
     // grab the game with the matching ID.
     if (!!idParam) {
       const id: number = parseInt(idParam);
-      //this.game = GAMES.find(g => g.id == id);
-      this.game$ = this.GameService.getGame(id);
-    }
-
-
-    // Get the console associated with this game.
-    if (!!this.game$?.subscribe(g => g?.consoleId)) {
-      consoleId: number = this.game$.subscribe(g => g?.consoleId);
-      this.console$ = this.ConsoleService.getConsole(this.game$.subscribe(g => g?.consoleId));
-      
+      this.gdetail$ = this.GameService.getGameDetail(id);
     }
   }
-
 }
